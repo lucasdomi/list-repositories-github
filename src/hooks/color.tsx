@@ -13,7 +13,10 @@ interface CurrentThemeProps {
   title: string;
 
   colors: {
+    primary: string;
     background: string;
+    backgroundCard: string;
+    buttonSubmit: string;
   };
 }
 

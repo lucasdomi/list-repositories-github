@@ -4,6 +4,9 @@ import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { Header, RepositoryInfo, Issues } from './styles';
 import logoImg from '../../assets/logo.svg';
 import api from '../../services/api';
+import Loading from '../../components/Loading';
+
+import { useLoading } from '../../hooks/loading';
 
 interface RepositoryParams {
   repository: string;
@@ -33,21 +36,29 @@ interface Issue {
 const Repository: React.FC = () => {
   const { params } = useRouteMatch<RepositoryParams>();
 
+  const { currentLoading, setLoading } = useLoading();
+
   const [repository, setRepository] = useState<Repository | null>(null);
   const [issues, setIssues] = useState<Issue[]>([]);
 
   useEffect(() => {
     async function loadData(): Promise<void> {
+      setLoading(true);
       const [responseRepository, responseIssue] = await Promise.all([
         api.get(`/repos/${params.repository}`),
         api.get(`/repos/${params.repository}/issues`),
       ]);
       setRepository(responseRepository.data);
       setIssues(responseIssue.data);
+      setLoading(false);
     }
 
     loadData();
-  }, [params.repository]);
+  }, [params.repository, setLoading]);
+
+  if (currentLoading) {
+    return <Loading />;
+  }
 
   return (
     <>

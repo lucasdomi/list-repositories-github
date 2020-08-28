@@ -8,20 +8,17 @@ interface FormProps {
 export const ContainerLogo = styled.div`
   display: flex;
   justify-content: space-between;
-  max-width: 700px;
 `;
 
 export const Title = styled.h1`
   font-size: 48px;
   color: ${(props) => props.theme.colors.primary};
-  max-width: 450px;
   line-height: 56px;
   margin-top: 80px;
 `;
 
 export const Form = styled.form<FormProps>`
   margin-top: 40px;
-  max-width: 700px;
 
   display: flex;
 
@@ -68,7 +65,6 @@ export const Form = styled.form<FormProps>`
 
 export const Repositories = styled.div`
   margin-top: 80px;
-  max-width: 700px;
 
   a {
     background: ${(props) => props.theme.colors.backgroundCard};

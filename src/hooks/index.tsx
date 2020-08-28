@@ -1,9 +1,12 @@
 import React from 'react';
 
 import { ThemeProvider } from './color';
+import { LoadingProvider } from './loading';
 
 const AppProvider: React.FC = ({ children }) => (
-  <ThemeProvider>{children}</ThemeProvider>
+  <ThemeProvider>
+    <LoadingProvider>{children}</LoadingProvider>
+  </ThemeProvider>
 );
 
 export default AppProvider;

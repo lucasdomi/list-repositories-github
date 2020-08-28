@@ -5,9 +5,15 @@ interface FormProps {
   hasError: boolean;
 }
 
+export const ContainerLogo = styled.div`
+  display: flex;
+  justify-content: space-between;
+  max-width: 700px;
+`;
+
 export const Title = styled.h1`
   font-size: 48px;
-  color: #3a3a3a;
+  color: ${(props) => props.theme.colors.primary};
   max-width: 450px;
   line-height: 56px;
   margin-top: 80px;
@@ -43,7 +49,7 @@ export const Form = styled.form<FormProps>`
   button {
     height: 70px;
     width: 210px;
-    background: #04d361;
+    background: ${(props) => props.theme.colors.buttonSubmit};
     border-radius: 0px 5px 5px 0px;
     border: 0;
     color: #fff;
@@ -51,7 +57,11 @@ export const Form = styled.form<FormProps>`
     transition: background-color 0.2s;
 
     &:hover {
-      background: ${shade(0.2, '#04d361')};
+      ${(props) =>
+        props.theme.colors.buttonSubmit &&
+        css`
+          background: ${shade(0.2, props.theme.colors.buttonSubmit)};
+        `}
     }
   }
 `;
@@ -61,7 +71,7 @@ export const Repositories = styled.div`
   max-width: 700px;
 
   a {
-    background: #fff;
+    background: ${(props) => props.theme.colors.backgroundCard};
     border-radius: 5px;
     width: 100%;
     padding: 24px;
@@ -90,7 +100,7 @@ export const Repositories = styled.div`
 
       strong {
         font-size: 20px;
-        color: #3d3d4d;
+        color: ${(props) => props.theme.colors.primary};
       }
 
       p {

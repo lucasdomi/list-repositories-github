@@ -1,9 +1,12 @@
-import React, { useState, FormEvent, useEffect } from 'react';
+import React, { useState, FormEvent, useEffect, useContext } from 'react';
 import { FiChevronRight } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-import { Title, Form, Repositories, Error } from './styles';
+import Switch from 'react-switch';
+import { ThemeContext } from 'styled-components';
+import { Title, Form, Repositories, Error, ContainerLogo } from './styles';
 import logoImg from '../../assets/logo.svg';
 import api from '../../services/api';
+import { useTheme } from '../../hooks/color';
 
 interface Repository {
   full_name: string;
@@ -15,6 +18,8 @@ interface Repository {
 }
 
 const Dashboard: React.FC = () => {
+  const { title } = useContext(ThemeContext);
+  const { setTheme } = useTheme();
   const [repositories, setRepositories] = useState<Repository[]>(() => {
     const storagedRepositories = localStorage.getItem(
       '@ListGitHub:repositories',
@@ -60,7 +65,20 @@ const Dashboard: React.FC = () => {
 
   return (
     <>
-      <img src={logoImg} alt="Github Explorer" />
+      <ContainerLogo>
+        <img src={logoImg} alt="Github Explorer" />
+        <Switch
+          onChange={setTheme}
+          checked={title === 'dark'}
+          checkedIcon={false}
+          uncheckedIcon={false}
+          height={10}
+          width={40}
+          handleDiameter={20}
+          offColor="#1a1a2e"
+          onColor="#fff"
+        />
+      </ContainerLogo>
       <Title>Explore repositórios no GitHub</Title>
 
       <Form hasError={!!inputError} onSubmit={handleAddRepository}>

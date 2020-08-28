@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+export const TitleIssue = styled.h3`
+  color: black;
+`;
+
 export const Header = styled.header`
   display: flex;
   align-items: center;
@@ -40,12 +44,12 @@ export const RepositoryInfo = styled.section`
 
       strong {
         font-size: 36px;
-        color: #3d3d4d;
+        color: ${(props) => props.theme.colors.primary};
       }
 
       p {
         font-size: 18px;
-        color: #737380;
+        color: ${(props) => props.theme.colors.primary};
         margin-top: 4px;
       }
     }
@@ -64,7 +68,7 @@ export const RepositoryInfo = styled.section`
       strong {
         display: block;
         font-size: 36px;
-        color: #3d3d4d;
+        color: ${(props) => props.theme.colors.primary};
       }
 
       span {
@@ -80,7 +84,7 @@ export const Issues = styled.div`
   margin-top: 80px;
 
   a {
-    background: #fff;
+    background: ${(props) => props.theme.colors.backgroundCard};
     border-radius: 5px;
     width: 100%;
     padding: 24px;
@@ -103,7 +107,7 @@ export const Issues = styled.div`
 
       strong {
         font-size: 20px;
-        color: #3d3d4d;
+        color: ${(props) => props.theme.colors.primary};
       }
 
       p {

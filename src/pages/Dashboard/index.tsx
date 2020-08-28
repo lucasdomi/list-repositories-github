@@ -8,6 +8,9 @@ import logoImg from '../../assets/logo.svg';
 import api from '../../services/api';
 import { useTheme } from '../../hooks/color';
 
+import { useLoading } from '../../hooks/loading';
+import Loading from '../../components/Loading';
+
 interface Repository {
   full_name: string;
   owner: {
@@ -20,6 +23,7 @@ interface Repository {
 const Dashboard: React.FC = () => {
   const { title } = useContext(ThemeContext);
   const { setTheme } = useTheme();
+  const { currentLoading, setLoading } = useLoading();
   const [repositories, setRepositories] = useState<Repository[]>(() => {
     const storagedRepositories = localStorage.getItem(
       '@ListGitHub:repositories',
@@ -52,15 +56,21 @@ const Dashboard: React.FC = () => {
     }
 
     try {
+      setLoading(true);
       const response = await api.get<Repository>(`repos/${newRepo}`);
       const repository = response.data;
 
       setRepositories([...repositories, repository]);
       setNewRepo('');
       setInputError('');
+      setLoading(false);
     } catch (err) {
       setInputError('Erro na busca por esse repositório');
     }
+  }
+
+  if (currentLoading) {
+    return <Loading />;
   }
 
   return (
